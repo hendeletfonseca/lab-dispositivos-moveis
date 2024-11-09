@@ -352,6 +352,24 @@ class _MyHomePageState extends State<MyHomePage> {
             centerTitle: true,
           ),
           body: playing ? game() : _home(),
+          floatingActionButton: playing
+              ? FloatingActionButton(
+                  onPressed: () {
+                    var tempUsername = username;
+                    var tempDifficulty = difficulty[selectedDifficulty];
+                    setState(() {
+                      playing = false;
+                    });
+                    setState(() {
+                      sudoku = Sudoku.generate(tempDifficulty!);
+                      username = tempUsername;
+                      playing = true;
+                    });
+                  },
+                  tooltip: 'Reiniciar',
+                  child: const Icon(Icons.refresh),
+                )
+              : null,
         ),
         onWillPop: () async {
           if (playing) {
